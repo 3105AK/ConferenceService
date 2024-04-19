@@ -35,6 +35,7 @@ public class CreateRoomController {
     @PostMapping("/create")
     public String createNext(@RequestParam(value = "timeStep", defaultValue = "180") int timeStep,
                              @RequestParam(value = "password", defaultValue = "") String password,
+                             @RequestParam(value = "name", defaultValue = "") String name,
                              @CookieValue(value = "id", defaultValue = "-1") String userId,
                              @CookieValue(value = "own", defaultValue = "-1") String own,
                              HttpServletResponse response){
@@ -44,6 +45,7 @@ public class CreateRoomController {
         room.setCreateTime(today.getTime());
         room.setTimeStep(timeStep);
         room.setPassword(password);
+        room.setName(name);
         room = roomRepository.save(room);
         String id = room.getRoomId().toString();
         if(!own.equals("-1")) roomRepository.deleteById(Long.valueOf(own));

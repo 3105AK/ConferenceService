@@ -73,7 +73,8 @@ public class AdminController {
                 commentRepository.delete(com);
                 continue;
             }
-            com.setLastTime((com.getCreatedTime() + room.getTimeStep() - today.getTime())/1000);
+            if(room.getTimeStep()!=0) com.setLastTime((com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes() - today.getTime())/1000);
+            else com.setLastTime(0);
             comments.add(com);
         }
 
@@ -87,7 +88,7 @@ public class AdminController {
                                @RequestParam(value = "likeId", defaultValue = "-1") long like,
                                @CookieValue(value = "id", defaultValue = "-1") long userId){
         if(!roomRepository.existsById(roomId)){
-            return new RoomJSON(new ArrayList<Comment>());
+            return new RoomJSON(roomId, "", new ArrayList<Comment>());
         }
         Room room = roomRepository.findById(roomId).orElseThrow();
         Date today = new Date();
@@ -125,13 +126,14 @@ public class AdminController {
                 commentRepository.delete(com);
                 continue;
             }
-            com.setLastTime((com.getCreatedTime() + room.getTimeStep() - today.getTime())/1000);
+            if(room.getTimeStep()!=0) com.setLastTime((com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes() - today.getTime())/1000);
+            else com.setLastTime(0);
             comments.add(com);
         }
 
         comments = CommentSort.quickSort(comments);
 
-        return new RoomJSON(comments);
+        return new RoomJSON(roomId, room.getName(), comments);
     }
     @PostMapping("/admin/{id}/delete")
     public String roomDelete(@PathVariable(value = "id") long roomId,

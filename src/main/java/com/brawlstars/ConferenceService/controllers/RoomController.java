@@ -66,16 +66,19 @@ public class RoomController {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment com: allComments) {
             if(com.getRoomId()!=roomId) continue;
-            if(com.getCreatedTime() + room.getTimeStep() >= today.getTime()){
+            if(com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes()>= today.getTime()){
                 commentRepository.delete(com);
                 continue;
             }
-            com.setLastTime((com.getCreatedTime() + room.getTimeStep() - today.getTime())/1000);
+            if(room.getTimeStep()!=0) com.setLastTime((com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes() - today.getTime())/1000);
+            else com.setLastTime(0);
             comments.add(com);
         }
 
         comments = CommentSort.quickSort(comments);
         model.addAttribute("comments", comments);
+        model.addAttribute("roomId", roomId);
+        model.addAttribute("name", room.getName());
         /*
         Room room = roomRepository.findById(roomId).orElseThrow();
         roomRepository.save(room);
@@ -84,7 +87,7 @@ public class RoomController {
         ArrayList<Comment> res = new ArrayList<>();
         post.ifPresent(res::add);
         model.addAttribute("post", res);*/
-        if(roomId==own||room.getPassword().equals(password1)||room.getPassword().equals(password2)) return "roomAdmin";
+        if((roomId==own||room.getPassword().equals(password1)||room.getPassword().equals(password2))&&!room.getPassword().equals("")) return "roomAdmin";
         return "room";
     }
     @ResponseBody
@@ -93,11 +96,10 @@ public class RoomController {
                                @RequestParam(value = "likeId", defaultValue = "-1") long like,
                                @CookieValue(value = "id", defaultValue = "-1") long userId){
         if(!roomRepository.existsById(roomId)){
-            return new RoomJSON(new ArrayList<Comment>());
+            return new RoomJSON(roomId, "", new ArrayList<Comment>());
         }
         Room room = roomRepository.findById(roomId).orElseThrow();
         Date today = new Date();
-
 
 
         if(like!=-1&&userId!=-1){
@@ -117,6 +119,7 @@ public class RoomController {
                         likedComment.setLikes(likedComment.getLikes()+1);
                         likedComments.add(userId);
                         likedComment.setLikedBy(likedComments);
+                        likedComment.setLastTime(likedComment.getLastTime()+room.getTimeStep()*1000);
                         commentRepository.save(likedComment);
                     }
                 }
@@ -136,17 +139,18 @@ public class RoomController {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment com: allComments) {
             if(com.getRoomId()!=roomId) continue;
-            if(com.getCreatedTime() + room.getTimeStep() >= today.getTime()){
+            if(com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes() >= today.getTime()){
                 commentRepository.delete(com);
                 continue;
             }
-            com.setLastTime((com.getCreatedTime() + room.getTimeStep() - today.getTime())/1000);
+            if(room.getTimeStep()!=0) com.setLastTime((com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes() - today.getTime())/1000);
+            else com.setLastTime(0);
             comments.add(com);
         }
 
         comments = CommentSort.quickSort(comments);
 
-        return new RoomJSON(comments);
+        return new RoomJSON(roomId, room.getName(), comments);
     }
     @PostMapping("/room/{id}/delete")
     public String roomDelete(@PathVariable(value = "id") long roomId,

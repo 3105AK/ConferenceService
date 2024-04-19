@@ -16,8 +16,7 @@ public class HomeController {
     @Autowired
     ReportRepository reportRepository;
     @GetMapping("/")
-    public String home(@CookieValue(value = "id", defaultValue = "-1") String id,  Model model) {
-        model.addAttribute("id", id);
+    public String home() {
         return "home";
     }
     @PostMapping("/")

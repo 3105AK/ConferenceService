@@ -14,6 +14,7 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long roomId;
+    private String name;
     private Integer timeStep;
     private Long createTime;
     private String password;
