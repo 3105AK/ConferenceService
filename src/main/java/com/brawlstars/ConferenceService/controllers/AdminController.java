@@ -69,12 +69,11 @@ public class AdminController {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment com: allComments) {
             if(com.getRoomId()!=roomId) continue;
-            if(com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes()>= today.getTime() && room.getTimeStep()!=0){
+            if(com.getCreatedTime() + room.getTimeStep() >= today.getTime()){
                 commentRepository.delete(com);
                 continue;
             }
-            if(room.getTimeStep()!=0) com.setLastTime((com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes() - today.getTime())/1000);
-            else com.setLastTime(0);
+            com.setLastTime((com.getCreatedTime() + room.getTimeStep() - today.getTime())/1000);
             comments.add(com);
         }
 
@@ -88,7 +87,7 @@ public class AdminController {
                                @RequestParam(value = "likeId", defaultValue = "-1") long like,
                                @CookieValue(value = "id", defaultValue = "-1") long userId){
         if(!roomRepository.existsById(roomId)){
-            return new RoomJSON(roomId, "", new ArrayList<Comment>());
+            return new RoomJSON(new ArrayList<Comment>());
         }
         Room room = roomRepository.findById(roomId).orElseThrow();
         Date today = new Date();
@@ -122,18 +121,17 @@ public class AdminController {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment com: allComments) {
             if(com.getRoomId()!=roomId) continue;
-            if(com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes()>= today.getTime() && room.getTimeStep()!=0){
+            if(com.getCreatedTime() + room.getTimeStep() >= today.getTime()){
                 commentRepository.delete(com);
                 continue;
             }
-            if(room.getTimeStep()!=0) com.setLastTime((com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes() - today.getTime())/1000);
-            else com.setLastTime(0);
+            com.setLastTime((com.getCreatedTime() + room.getTimeStep() - today.getTime())/1000);
             comments.add(com);
         }
 
         comments = CommentSort.quickSort(comments);
 
-        return new RoomJSON(roomId, room.getName(), comments);
+        return new RoomJSON(comments);
     }
     @PostMapping("/admin/{id}/delete")
     public String roomDelete(@PathVariable(value = "id") long roomId,
@@ -144,15 +142,6 @@ public class AdminController {
     @GetMapping("/admin/{id}/deleteRoom")
     public String delRoom(@PathVariable(value = "id") Long roomId){
         roomRepository.deleteById(roomId);
-        List<Comment> comments = new ArrayList<>();
-        try{
-            comments = commentRepository.findAll();
-        }
-        catch (Exception ex){}
-
-        for(Comment com: comments){
-            if(com.getRoomId()==roomId) commentRepository.delete(com);
-        }
         return "redirect:/admin";
     }
 }

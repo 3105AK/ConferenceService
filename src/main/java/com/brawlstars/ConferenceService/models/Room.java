@@ -16,6 +16,7 @@ public class Room {
     private Long roomId;
     private Integer timeStep;
     private Long createTime;
+    private String password;
     //private String code;
     //private Long userId;
     //private ArrayList<Integer> comments;
