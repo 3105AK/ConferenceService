@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 @Controller
 public class RoomController {
@@ -66,7 +67,7 @@ public class RoomController {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment com: allComments) {
             if(com.getRoomId()!=roomId) continue;
-            if(com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes()>= today.getTime()){
+            if(com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes()>= today.getTime() && room.getTimeStep()!=0){
                 commentRepository.delete(com);
                 continue;
             }
@@ -139,7 +140,7 @@ public class RoomController {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment com: allComments) {
             if(com.getRoomId()!=roomId) continue;
-            if(com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes() >= today.getTime()){
+            if(com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes() >= today.getTime() && room.getTimeStep()!=0){
                 commentRepository.delete(com);
                 continue;
             }
@@ -184,6 +185,15 @@ public class RoomController {
                           @CookieValue(value = "own", defaultValue = "-1") Long own){
         if(!roomId.equals(own)) return "redirect:/room/{id}";
         roomRepository.deleteById(roomId);
+        List<Comment> comments = new ArrayList<>();
+        try{
+            comments = commentRepository.findAll();
+        }
+        catch (Exception ex){}
+
+        for(Comment com: comments){
+            if(com.getRoomId()==roomId) commentRepository.delete(com);
+        }
         return "redirect:/";
     }
 

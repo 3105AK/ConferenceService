@@ -69,7 +69,7 @@ public class AdminController {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment com: allComments) {
             if(com.getRoomId()!=roomId) continue;
-            if(com.getCreatedTime() + room.getTimeStep() >= today.getTime()){
+            if(com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes()>= today.getTime() && room.getTimeStep()!=0){
                 commentRepository.delete(com);
                 continue;
             }
@@ -122,7 +122,7 @@ public class AdminController {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment com: allComments) {
             if(com.getRoomId()!=roomId) continue;
-            if(com.getCreatedTime() + room.getTimeStep() >= today.getTime()){
+            if(com.getCreatedTime() + room.getTimeStep()*1000 + room.getTimeStep()*1000*com.getLikes()>= today.getTime() && room.getTimeStep()!=0){
                 commentRepository.delete(com);
                 continue;
             }
@@ -144,6 +144,15 @@ public class AdminController {
     @GetMapping("/admin/{id}/deleteRoom")
     public String delRoom(@PathVariable(value = "id") Long roomId){
         roomRepository.deleteById(roomId);
+        List<Comment> comments = new ArrayList<>();
+        try{
+            comments = commentRepository.findAll();
+        }
+        catch (Exception ex){}
+
+        for(Comment com: comments){
+            if(com.getRoomId()==roomId) commentRepository.delete(com);
+        }
         return "redirect:/admin";
     }
 }
