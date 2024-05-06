@@ -1,0 +1,250 @@
+ .u-section-1 {
+  background-image: url("images/basic11.png");
+  background-position: 64.41% 100%;
+  background-size: 120%;
+}
+
+.u-section-1 .u-sheet-1 {
+  min-height: 874px;
+}
+
+.u-section-1 .u-image-1 {
+  width: 1095px;
+  height: 614px;
+  margin: 124px auto 60px -60px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 651px;
+  }
+
+  .u-section-1 .u-image-1 {
+    width: 940px;
+    height: 527px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 528px;
+  }
+
+  .u-section-1 .u-image-1 {
+    width: 720px;
+    height: 404px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 427px;
+  }
+
+  .u-section-1 .u-image-1 {
+    width: 540px;
+    height: 303px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 298px;
+  }
+
+  .u-section-1 .u-image-1 {
+    width: 340px;
+    height: 191px;
+  }
+} .u-section-2 {
+  background-image: url("images/basic24.png");
+  background-position: 50% 19.13%;
+}
+
+.u-section-2 .u-sheet-1 {
+  min-height: 1179px;
+}
+
+.u-section-2 .u-layout-wrap-1 {
+  width: 840px;
+  margin: 94px auto 0;
+}
+
+.u-section-2 .u-layout-cell-1 {
+  min-height: 516px;
+  background-image: none;
+  --animation-custom_in-translate_x: 0px;
+  --animation-custom_in-translate_y: 0px;
+  --animation-custom_in-opacity: 0;
+  --animation-custom_in-rotate: 0deg;
+  --animation-custom_in-scale: 0.3;
+  --radius: 30px;
+}
+
+.u-section-2 .u-container-layout-1 {
+  padding: 30px 9px;
+}
+
+.u-section-2 .u-text-1 {
+  font-family: Vladivostok-Bold;
+  font-size: 1rem;
+  margin: 0 11px;
+}
+
+.u-section-2 .u-layout-cell-2 {
+  min-height: 516px;
+  --animation-custom_in-translate_x: 0px;
+  --animation-custom_in-translate_y: 0px;
+  --animation-custom_in-opacity: 0;
+  --animation-custom_in-rotate: 0deg;
+  --animation-custom_in-scale: 0.3;
+  --radius: 30px;
+}
+
+.u-section-2 .u-container-layout-2 {
+  padding: 30px 10px;
+}
+
+.u-section-2 .u-text-2 {
+  margin: 11px auto 0;
+}
+
+.u-section-2 .u-btn-1 {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.875rem;
+  align-self: center;
+  background-image: none;
+  border-style: solid;
+  --radius: 15px;
+  font-family: Vladivostok-Bold;
+  margin: 173px auto 0;
+  padding: 20px 76px 21px;
+}
+
+.u-section-2 .u-btn-2 {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.875rem;
+  align-self: center;
+  background-image: none;
+  border-style: solid;
+  --radius: 15px;
+  font-family: Vladivostok-Bold;
+  margin: 0 auto 60px;
+  padding: 20px 73px 21px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-2 .u-sheet-1 {
+    min-height: 972px;
+  }
+
+  .u-section-2 .u-layout-wrap-1 {
+    position: relative;
+  }
+
+  .u-section-2 .u-btn-1 {
+    border-style: none;
+  }
+
+  .u-section-2 .u-btn-2 {
+    border-style: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-2 .u-sheet-1 {
+    min-height: 329px;
+  }
+
+  .u-section-2 .u-layout-wrap-1 {
+    width: 720px;
+  }
+
+  .u-section-2 .u-layout-cell-1 {
+    min-height: 100px;
+  }
+
+  .u-section-2 .u-text-1 {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .u-section-2 .u-layout-cell-2 {
+    min-height: 100px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-2 .u-sheet-1 {
+    min-height: 429px;
+  }
+
+  .u-section-2 .u-layout-wrap-1 {
+    width: 540px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-2 .u-layout-wrap-1 {
+    width: 340px;
+  }
+}@font-face {
+  font-family: 'Vladivostok-Bold';
+  font-style: normal;
+  font-weight: 400;
+  src: url(fonts/Vladivostok-Bold.ttf);
+}
+
+.form-popup {
+  display: none;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 16px;
+  
+}
+
+.form-container {
+  max-width: 500px;
+  padding: 10px;
+  background: black;
+  
+}
+
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+.form-container .btn {
+  background-color: black;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.form-container .cancel {
+  background-color: black;
+}
+
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}

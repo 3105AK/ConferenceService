@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;" lang="ru"><head>
+<html xmlns:th="http://www.thymeleaf.org" style="font-size: 16px;" lang="ru"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta name="keywords" content="Mobile App Development, ​Stimulate your cognitive abilities while having fun, What We Do, Testimonials, Company Services, ​Love the way you work together?, Our Portfolio, About Us, ​Our way, Get in Touch, ​Level up your brand, INTUITIVE">
     <meta name="description" content="">
     <title>Главная</title>
     <link rel="stylesheet" href="nicepage.css" media="screen">
-<link rel="stylesheet" href="Главная.css" media="screen">
+    <link rel="stylesheet" href="home.css" media="screen">
     <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+    <script src="home.js"></script>
     <meta name="generator" content="Nicepage 6.7.6, nicepage.com">
     
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
@@ -26,7 +27,7 @@
     <meta property="og:title" content="Главная">
     <meta property="og:type" content="website">
   <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
-  <body data-home-page="Главная.html" data-home-page-title="Главная" data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="ru"><header class="u-clearfix u-custom-color-3 u-header u-header" id="sec-421a"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+  <body data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="ru"><header class="u-clearfix u-custom-color-3 u-header u-header" id="sec-421a"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1">
           <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
             <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
@@ -35,12 +36,6 @@
 </g></svg>
             </a>
           </div>
-          <div class="u-custom-menu u-nav-container">
-            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Главная.html" style="padding: 10px 20px;">Главная</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Тех-поддержка.html" style="padding: 10px 20px;">Тех поддержка</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Вопросы.html" style="padding: 10px 20px;">Вопросы?</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Вход.html" style="padding: 10px 20px;">Вход</a>
-</li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
@@ -81,21 +76,27 @@
             </div>
           </div>
         </div>
-        <button class="open-button u-align-left u-border-3 u-border-custom-color-1 u-border-hover-custom-color-1 u-btn u-btn-round u-button-style u-custom-font u-none u-radius u-text-active-white u-text-hover-custom-color-1 u-text-white u-btn-1" onclick="openForm()"> Войти в конферецию</button>
-        <a href="#" class="u-align-left u-border-3 u-border-custom-color-1 u-border-hover-custom-color-1 u-btn u-btn-round u-button-style u-custom-font u-none u-radius u-text-active-white u-text-hover-custom-color-1 u-text-white u-btn-2"> Создать конферецию</a>
+        <button class="open-button u-align-left u-border-3 u-border-custom-color-1 u-border-hover-custom-color-1 u-btn u-btn-round u-button-style u-custom-font u-none u-radius u-text-active-white u-text-hover-custom-color-1 u-text-white u-btn-1" onclick="openFormLogin()"> Войти в конферецию</button>
+        <button class="open-button u-align-left u-border-3 u-border-custom-color-1 u-border-hover-custom-color-1 u-btn u-btn-round u-button-style u-custom-font u-none u-radius u-text-active-white u-text-hover-custom-color-1 u-text-white u-btn-1" onclick="openFormCreate()"> Создать конференцию</button>
 
-        <div class="form-popup" id="myForm">
+        <div class="form-popup" id="formLogin">
           <form action="#" class="form-container" th:action="@" method="post">
-            <input type="text" name="RoomName" placeholder="Название комнаты" name="name" required>
-            <input type="text" name="RoomPass" placeholder="Пароль" name="email" required>
+            <input type="text" name="id" placeholder="Номер комнаты" required>
+            <input type="password" name="password" placeholder="Пароль модератора">
             <button type="submit" class="btn">Войти</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Закрыть</button>
+            <button type="button" class="btn cancel" onclick="closeFormLogin()">Закрыть</button>
           </form>
         </div>
-      </div>
+
+        <div class="form-popup" id="formCreate">
+          <form action="#" class="form-container" th:action="/create" method="post">
+            <input type="text" name="name" placeholder="Название комнаты" required>
+            <input type="password" name="password" placeholder="Пароль модератера">
+            <input type="text" name="timeStep" placeholder="Время жизни вопроса" value="0">
+            <button type="submit" class="btn">Создать</button>
+            <button type="button" class="btn cancel" onclick="closeFormCreate()">Закрыть</button>
+          </form>
+        </div>
     </section>
-    <footer class="u-align-center u-clearfix u-custom-color-5 u-footer u-footer" id="sec-6b6c"><img class="custom-expanded u-image u-image-default u-image-1" src="images/Vector.png" alt="" data-image-width="613" data-image-height="568"><img class="u-image u-image-default u-image-2" src="images/Vector1.png" alt="" data-image-width="390" data-image-height="261"><p class="u-align-left u-custom-font u-text u-text-custom-color-1 u-text-default u-text-1">Связь с разрабочиками:<br>@nikkonn<br>@sanygoku
-      </p><p class="u-align-left u-custom-font u-text u-text-custom-color-1 u-text-default u-text-2">Связь с дизайнером:<br>@pollkazzz
-      </p></footer>
   
 </body></html>
