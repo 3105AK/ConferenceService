@@ -5,6 +5,15 @@
     <title>Admin reports</title>
 </head>
 <body>
-Reports:
+    <table>
+        <tr th:each="i : ${reports}">
+          <td th:text="${i.text}">i</td>
+          <td th:text="${i.currentTime}">i</td>
+          <form th:field={i.reportId} th:action="/admin/report" method="post">
+            <button type="submit" class="btn">Удалить репорт</button>
+          </form>
+        </tr>
+    </table>
+    <a th:href="/admin">Назад</a>
 </body>
 </html>

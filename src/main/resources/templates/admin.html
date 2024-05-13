@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-Hello Admin
+    <a th:href="/admin/reports">Reports</a>
+    <table>
+        <tr th:each="i : ${rooms}">
+          <td th:text="${i.name}">i</td>
+          <a th:href="/room/{i.roomId}">Перейти</a>
+        </tr>
+    </table>
 </body>
 </html>
