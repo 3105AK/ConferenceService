@@ -24,7 +24,7 @@ public class CreateRoomController {
     private NumberCountRepository numberCountRepository;
     @GetMapping("/create")
     public String createPage(@CookieValue(value = "id", defaultValue = "-1") String userId,
-                             @RequestParam(value = "timeStep", defaultValue = "180") int timeStep,
+                             @RequestParam(value = "timeStep", defaultValue = "0") int timeStep,
                              @RequestParam(value = "password", defaultValue = "") String password,
                              @RequestParam(value = "name", defaultValue = "") String name,
                              @CookieValue(value = "own", defaultValue = "-1") String own,

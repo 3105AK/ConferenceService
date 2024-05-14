@@ -1,7 +1,15 @@
-function openForm() {
-    document.getElementById("myForm").style.display = "block";
+function openFormLogin() {
+    document.getElementById("formLogin").style.display = "block";
 }
 
-function closeForm() {
-    document.getElementById("myForm").style.display = "none";
+function closeFormLogin() {
+    document.getElementById("formLogin").style.display = "none";
+}
+
+function openFormCreate() {
+    document.getElementById("formCreate").style.display = "block";
+}
+
+function closeFormCreate() {
+    document.getElementById("formCreate").style.display = "none";
 }
