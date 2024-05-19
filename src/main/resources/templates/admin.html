@@ -9,7 +9,7 @@
     <table>
         <tr th:each="i : ${rooms}">
           <td th:text="${i.name}">i</td>
-          <a th:href="/room/{i.roomId}">Перейти</a>
+          <a th:href="'/room/' + ${i.roomId}">Перейти</a>
         </tr>
     </table>
 </body>
